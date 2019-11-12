@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="studentService" class="cn.jhc.zx.service.StudentService"></bean>
+
+	<bean id="logger" class="cn.jhc.zx.utils.StudentLogger"></bean>
+
+	<aop:config>
+		<aop:pointcut id="pt" expression="execution(public void cn.jhc.zx.service.StudentService.save())"/>
+		<aop:aspect id="logAdvice" ref="logger">
+			<!-- 前置通知
+			<aop:before method="beforePrintLog" pointcut-ref="pt"></aop:before> -->
+
+			<!-- 后置通知
+			<aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt"></aop:after-returning> -->
+
+			<!-- 异常通知
+			<aop:after-throwing method="beforeThrowingPrintLog" pointcut-ref="pt"></aop:after-throwing> -->
+
+			<!-- 最终通知
+			<aop:after method="afterPrintLog" pointcut-ref="pt"></aop:after> -->
+
+
+
+			<!-- 环绕通知 -->
+			<aop:around method="aroundPrintLog" pointcut-ref="pt"></aop:around>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>
